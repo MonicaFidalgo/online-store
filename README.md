@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+# 🛍️ React + TypeScript Product Filter App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple product listing app with dynamic filtering, built using React, TypeScript, and Tailwind CSS.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🛠️ Project Setup and Implementation Steps
 
-### `yarn start`
+### 1. Project Initialization
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Bootstrapped a new **React + TypeScript** project using `yarn`.
+- Installed and configured **Tailwind CSS** for styling.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 2. Data and Type Definitions
 
-### `yarn test`
+- Created a `datastore.ts` file to simulate a backend, providing:
+  - A list of products
+  - Property definitions
+  - Supported filter operators
+- Defined strong types in `types.ts` (`Product`, `Property`, `Operator`, `Filter`, etc.) to ensure type safety throughout the app.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Basic Table Implementation
 
-### `yarn build`
+- Built a basic table (`ProductTable`) to render the products.
+- Verified correct rendering and data flow.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. Styling with Tailwind CSS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Used Tailwind for:
+  - Clean, responsive layout
+  - Spacing and padding
+  - Borders and typography
+  - Utility classes for quick prototyping
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 5. Filter Bar
 
-### `yarn eject`
+The filter bar includes:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- A **Property** dropdown (e.g. Product Name, Color)
+- A **dynamic Operator** dropdown (filtered by property type)
+- A **Value** input (shown only when both above are selected)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 6. Property Options
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The following properties are available:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Name         | Type         | Values (if applicable)                      |
+| ------------ | ------------ | ------------------------------------------- |
+| Product Name | `string`     | -                                           |
+| Color        | `string`     | -                                           |
+| Weight (oz)  | `number`     | -                                           |
+| Category     | `enumerated` | `"tools"`, `"electronics"`, `"kitchenware"` |
+| Wireless     | `enumerated` | `"true"`, `"false"`                         |
 
-## Learn More
+### 7. Operator Logic
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Each property type has a set of valid operators:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Property Type | Valid Operators                                                              |
+| ------------- | ---------------------------------------------------------------------------- |
+| `string`      | `equals`, `contains`, `has any value`, `has no value`, `is any of`           |
+| `number`      | `equals`, `is greater than`, `is less than`, `has any value`, `has no value` |
+| `enumerated`  | `equals`, `is any of`, `has any value`, `has no value`                       |
+
+### 8. Dynamic Operator Filtering
+
+On property selection:
+
+1. Retrieve the selected `Property` by ID.
+2. Use its `type` to determine the valid operators.
+3. Render only those operators in the second dropdown.
+4. Created an enum called OperatorId to help prevent spelling mistakes.
+
+To handle this logic, a utility function is used:
+
+```ts
+getPropertyValidOperators(property: Property | undefined): Operator[]
+```
