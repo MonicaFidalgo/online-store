@@ -6,13 +6,14 @@ interface FilterBarProps {
   properties: Property[];
   filter: Filter;
   onFilterChange: (filter: Filter) => void;
-  onClear?: () => void;
+  onClear: () => void;
 }
 
 export const FilterBar: React.FC<FilterBarProps> = ({
   properties,
   filter,
   onFilterChange,
+  onClear,
 }) => {
   const selectedProperty = properties.find((p) => p.id === filter.propertyId);
   const validPropertyOperators = getPropertyValidOperators(selectedProperty);
@@ -135,6 +136,13 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       </select>
 
       {renderValueInput()}
+
+      <button
+        onClick={onClear}
+        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 ml-auto"
+      >
+        Clear
+      </button>
     </div>
   );
 };

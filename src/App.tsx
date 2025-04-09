@@ -20,6 +20,14 @@ function App() {
     return filterProducts(products, filter);
   }, [products, filter]);
 
+  const handleClear = () => {
+    setFilter({
+      propertyId: null,
+      operatorId: null,
+      value: "",
+    });
+  };
+
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -28,6 +36,7 @@ function App() {
           properties={properties}
           filter={filter}
           onFilterChange={setFilter}
+          onClear={handleClear}
         />
         <ProductTable products={filteredProducts} properties={properties} />
       </div>

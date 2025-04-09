@@ -83,3 +83,14 @@ Now I needed to render the 3 select. So it will only show if we have a property 
 If the property is a string or a number, I want to display an input type text or number
 If the property is enumerated I want to display a select
 However, if the property is enumerated and the operator is “is any of” (in) I want to show a multiselect
+
+### 10. Created the Filter Logic
+
+Created the filter logic having in mind the properties and operators.
+Faced an issue when it was a string, I needed to do a lowercase so the search wont be case sensitive.
+
+### 11. Added Clear Button
+
+### 12. Add a simple Unit Test for the FilterBar
+
+### 13. Deployed the App with Cloudflare Pages
