@@ -9,12 +9,6 @@ interface FilterBarProps {
   onClear?: () => void;
 }
 
-type Props = {
-  selectedProperty: Property;
-  filter: Filter;
-  handleValueChange: (val: string | string[]) => void;
-};
-
 export const FilterBar: React.FC<FilterBarProps> = ({
   properties,
   filter,
