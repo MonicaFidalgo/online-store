@@ -23,7 +23,7 @@ export type Product = {
 export type Filter = {
   propertyId: number | null;
   operatorId: string | null;
-  value: string | string[];
+  value: string | string[] | number;
 };
 
 export type DataStore = {

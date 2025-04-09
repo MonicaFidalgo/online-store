@@ -23,13 +23,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const selectedProperty = properties.find((p) => p.id === filter.propertyId);
   const validPropertyOperators = getPropertyValidOperators(selectedProperty);
 
-  console.log(
-    "selectedProperty",
-    selectedProperty,
-    filter,
-    validPropertyOperators
-  );
-
   const handlePropertyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const propertyId = Number(e.target.value);
     onFilterChange({
@@ -47,26 +40,26 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     });
   };
 
-  const handleValueChange = (value: string | string[]) => {
-    onFilterChange({
-      ...filter,
-      value,
-    });
+  const handleValueChange = (val: string | string[]) => {
+    const parsedValue =
+      selectedProperty?.type === PropertyType.Number ? Number(val) : val;
+    onFilterChange({ ...filter, value: parsedValue });
   };
 
-  const isValueInputVisible = !!selectedProperty && !!filter.operatorId;
+  const renderValueInput = () => {
+    if (!selectedProperty || !filter.operatorId) return null;
+    if (
+      [OperatorId.Any, OperatorId.None].includes(
+        filter.operatorId as OperatorId
+      )
+    )
+      return null;
 
-  const ValueInput: React.FC<Props> = ({
-    selectedProperty,
-    filter,
-    handleValueChange,
-  }) => {
     const isMultiSelect =
       filter.operatorId === OperatorId.In &&
       selectedProperty.type === PropertyType.Enumerated;
 
-    const isSingleSelect =
-      selectedProperty.type === PropertyType.Enumerated && !isMultiSelect;
+    const isSingleSelect = selectedProperty.type === PropertyType.Enumerated;
 
     if (isMultiSelect) {
       return (
@@ -147,13 +140,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         ))}
       </select>
 
-      {isValueInputVisible && (
-        <ValueInput
-          selectedProperty={selectedProperty}
-          filter={filter}
-          handleValueChange={handleValueChange}
-        />
-      )}
+      {renderValueInput()}
     </div>
   );
 };
