@@ -44,3 +44,9 @@ export enum OperatorId {
   In = "in",
   Contains = "contains",
 }
+
+export enum PropertyType {
+  Number = "number",
+  Enumerated = "enumerated",
+  String = "string",
+}

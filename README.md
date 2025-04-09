@@ -76,3 +76,10 @@ To handle this logic, a utility function is used:
 ```ts
 getPropertyValidOperators(property: Property | undefined): Operator[]
 ```
+
+### 9. Third Input Logic
+
+Now I needed to render the 3 select. So it will only show if we have a property and an operator id
+If the property is a string or a number, I want to display an input type text or number
+If the property is enumerated I want to display a select
+However, if the property is enumerated and the operator is “is any of” (in) I want to show a multiselect
